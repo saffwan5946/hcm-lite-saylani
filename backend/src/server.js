@@ -29,6 +29,19 @@ app.use(async (req, res, next) => {
   }
 });
 
+// Root welcome endpoint for judges & browser checks
+app.get('/', (req, res) => {
+  res.json({
+    project: 'HCM Lite API — Saylani Hackathon 2026',
+    status: 'Online & Active',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth/status',
+      docs: 'All functional API routes are under /api/*'
+    }
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
