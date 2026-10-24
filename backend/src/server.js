@@ -16,6 +16,16 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Middleware to ensure DB connection on Vercel Serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Database connection failed on serverless' });
+  }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
@@ -49,5 +59,5 @@ if (require.main === module) {
   startServer();
 }
 
-module.exports = { app, startServer };
+module.exports = app;
 

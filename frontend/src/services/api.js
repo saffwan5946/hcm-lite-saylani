@@ -1,5 +1,5 @@
-// Frontend API client with JWT handling and base URL
-const BASE_URL = '/api';
+// Frontend API client with configurable base URL (for Vercel & local development)
+const BASE_URL = (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : '') + '/api';
 
 export const getAuthToken = () => localStorage.getItem('hcm_token');
 export const setAuthToken = (token) => localStorage.setItem('hcm_token', token);
