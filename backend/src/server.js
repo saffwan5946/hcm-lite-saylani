@@ -22,7 +22,10 @@ app.use(async (req, res, next) => {
     await connectDB();
     next();
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Database connection failed on serverless' });
+    res.status(500).json({ 
+      success: false, 
+      message: `Database connection failed on serverless: ${err.message}` 
+    });
   }
 });
 
